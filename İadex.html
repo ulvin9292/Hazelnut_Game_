@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazelnut Clicker</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #f0e6d2, #d4a574);
+            font-family: Arial, sans-serif;
+            color: #3e2723;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        #coin {
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, #a16436, #5c3510);
+            border-radius: 50%;
+            margin: 20px auto;
+            cursor: pointer;
+            box-shadow: 0 10px 15px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+        #coin:active {
+            transform: scale(0.95);
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        p {
+            font-size: 24px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Hazelnut Coin</h1>
+        <p>Balans: <span id="balance">0</span></p>
+        <div id="coin" onclick="clickCoin()"></div>
+    </div>
+
+    <script>
+        let balance = 0;
+        function clickCoin() {
+            balance += 1;
+            document.getElementById('balance').innerText = balance;
+        }
+    </script>
+</body>
+</html>
