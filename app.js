@@ -83,7 +83,11 @@ function completeTask(reward, button) {
   state.score += reward;
   button.disabled = true;
   button.textContent = 'Tamamlandı';
-  updateUI();
+  function updateUI() {
+  scoreDisplay.innerText = state.score;
+  updateWalletUI();
+}
+
   saveGameData();
 }
 
