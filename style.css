@@ -33,3 +33,6 @@ body {
 #level-title, #holding-wallet, #pool-wallet, #energy-text {
   color: red;
 }
+#level-title, #holding-wallet, #pool-wallet, #energy-text {
+  color: red !important;
+}
