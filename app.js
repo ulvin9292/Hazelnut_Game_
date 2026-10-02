@@ -159,3 +159,25 @@ function loadGameData() {
 }
 
 loadGameData();
+function showAd() {
+  if (typeof window.Adsgram !== 'undefined') {
+    const ad = window.Adsgram.init({ blockId: "REKLAM_BlOK_İDNİZ" });
+    ad.show()
+      .then((result) => {
+        if (result.done) {
+          // Reklam uğurla bitdi, istifadəçini mükafatlandırın
+          gameState.score += 50; // Məsələn, 50 xal əlavə edirik
+          updateUI();
+          saveGameData();
+          console.log("Reklam uğurla izlənildi!");
+        } else {
+          console.log("İstifadəçi reklamı vaxtından əvvəl bağladı.");
+        }
+      })
+      .catch((error) => {
+        console.error("Reklam yüklənərkən xəta baş verdi:", error);
+      });
+  } else {
+    console.warn("AdsGram SDK tam yüklənməyib.");
+  }
+}
