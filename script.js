@@ -21,3 +21,7 @@ function completeTask(reward, button) {
   updateUI();
   saveGameData();
 }
+function updateWalletUI() {
+  document.getElementById('holding-wallet').textContent = state.holding.toLocaleString();
+  document.getElementById('pool-wallet').textContent = state.pool.toLocaleString();
+}
