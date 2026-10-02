@@ -1,31 +1,60 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hazelnut Coin</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Hazelnut Clicker</title>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Hazelnut Coin</h1>
-            <div class="score-board">
-                <span id="score">0</span>
-            </div>
-        </div>
-        
-        <div class="click-area">
-            <button id="click-btn">
-                <img src="hazelnut.png" alt="Fındıq">
-            </button>
-        </div>
+  <div id="app">
+    <header class="header">
+      <div class="level-info">
+        <span id="level-title">Səviyyə 1</span>
+        <span id="score-display">0 🪙</span>
+      </div>
+      <div class="progress-bar-container">
+        <div id="level-progress" class="progress-bar" style="width: 0%;"></div>
+      </div>
+    </header>
 
-        <div class="footer">
-            <button id="ad-btn">Reklama Bax</button>
+    <main id="game-screen" class="screen active-screen">
+      <div class="clicker-container">
+        <div id="click-target" class="hazelnut-btn">🌰</div>
+      </div>
+      <div class="energy-container">
+        <div class="energy-label">⚡ Enerji: <span id="energy-text">1000 / 1000</span></div>
+        <div class="energy-bar-bg">
+          <div id="energy-bar" class="energy-bar-fill" style="width: 100%;"></div>
         </div>
-    </div>
-    <script src="script.js"></script>
+      </div>
+    </main>
+
+    <section id="tasks-screen" class="screen">
+      <h2>Tapşırıqlar və Reklamlar</h2>
+      <ul class="task-list">
+        <li class="task-item">
+          <div><strong>Reklama Bax</strong><p>+500 🪙</p></div>
+          <button class="task-btn" onclick="completeTask(500, this)">Bax</button>
+        </li>
+      </ul>
+    </section>
+
+    <section id="stats-screen" class="screen">
+      <h2>Profiliniz</h2>
+      <div class="stats-card">
+        <p>Ümumi Klik: <span id="stat-taps">0</span></p>
+        <p>Cari Səviyyə: <span id="stat-level">1</span></p>
+      </div>
+    </section>
+
+    <nav class="bottom-nav">
+      <button class="nav-btn active" onclick="switchTab('game-screen', this)">🎮 Oyun</button>
+      <button class="nav-btn" onclick="switchTab('tasks-screen', this)">📋 Tapşırıqlar</button>
+      <button class="nav-btn" onclick="switchTab('stats-screen', this)">📊 Profil</button>
+    </nav>
+  </div>
+  <script src="app.js"></script>
 </body>
 </html>
-
