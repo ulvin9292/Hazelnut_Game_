@@ -14,3 +14,10 @@ adBtn.addEventListener('click', () => {
     score += 10;
     scoreDisplay.innerText = score;
 });
+function completeTask(reward, button) {
+  state.score += reward;
+  button.disabled = true;
+  button.textContent = 'Tamamlandı';
+  updateUI();
+  saveGameData();
+}
