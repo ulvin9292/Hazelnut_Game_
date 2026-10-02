@@ -36,3 +36,13 @@ body {
 #level-title, #holding-wallet, #pool-wallet, #energy-text {
   color: red !important;
 }
+#connect-wallet-btn {
+  background-color: #27ae60;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
