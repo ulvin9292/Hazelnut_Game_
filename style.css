@@ -30,3 +30,6 @@ body {
 .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 60px; background: #222; display: flex; justify-content: space-around; align-items: center; border-top: 1px solid #333; }
 .nav-btn { background: none; border: none; color: #888; font-size: 0.9rem; cursor: pointer; }
 .nav-btn.active { color: #f39c12; font-weight: bold; }
+#level-title, #holding-wallet, #pool-wallet, #energy-text {
+  color: red;
+}
