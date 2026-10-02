@@ -106,6 +106,3 @@ function completeTask(reward, button) {
 }
 
 loadGameData();
-if (state.score >= 10000) {
-  alert("Təbriklər! 10 000 Fındıq Coin toplayaraq 1 kvadrat metr torpaq sahəsi qazandınız.");
-}
