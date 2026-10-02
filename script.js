@@ -1,136 +1,176 @@
-const state = {
+// === OYUNUN ƏSAS VƏZİYYƏTİ (STATE) ===
+const gameState = {
   score: 0,
-  holding: 0,
-  pool: 0,
-  energy: 1000,
-  maxEnergy: 1000,
-  energyRegenRate: 5,
-  profitPerSecond: 0,
-  lastUpdate: Date.now(),
-  level: 1,
-  xp: 0,
-  xpNeeded: 100,
   clickPower: 1,
-  frenzyActive: false,
-  frenzyMultiplier: 1,
-  lastDailyReward: null,
-  achievements: {
-    firstClick: false,
-    noviceTycoon: false,
-    masterClicker: false
+  passiveIncome: 0,
+  
+  // Combo mexanikası
+  comboCount: 0,
+  comboMultiplier: 1,
+  comboTimeout: null,
+  
+  // Boss Mexanikası
+  bossActive: false,
+  bossHp: 0,
+  bossMaxHp: 100,
+  bossTimer: 15,
+  bossInterval: null,
+  bossReward: 500,
+
+  // Dinamik Upgrade-lər
+  upgrades: {
+    clickBoost: { count: 0, baseCost: 10, costMultiplier: 1.5, power: 1 },
+    autoMiner: { count: 0, baseCost: 50, costMultiplier: 1.6, power: 2 },
+    quantumCore: { count: 0, baseCost: 200, costMultiplier: 1.8, power: 10 }
   }
 };
 
+// === DOM ELEMENTLƏRİ ===
+const scoreEl = document.getElementById('score');
+const clickPowerEl = document.getElementById('click-power');
+const passiveEl = document.getElementById('passive-income');
+const comboEl = document.getElementById('combo-display');
 const clickBtn = document.getElementById('click-btn');
-const adBtn = document.getElementById('ad-btn');
-const scoreDisplay = document.getElementById('score');
-const energyDisplay = document.getElementById('energy');
-const profitDisplay = document.getElementById('profit-per-second');
-const levelDisplay = document.getElementById('level');
-const xpDisplay = document.getElementById('xp');
-const frenzyDisplay = document.getElementById('frenzy-status');
 
-function checkAchievements() {
-  if (state.score >= 100 && !state.achievements.firstClick) {
-    state.achievements.firstClick = true;
-    state.score += 50;
-    console.log("Nailiyyət kilidi açıldı: İlk Addım!");
+// === 1. KOMBİNASİYA (COMBO) MEXANİKASI ===
+function registerClick() {
+  // Boss döyüşü gedirsə, zərbəni Boss-a vur
+  if (gameState.bossActive) {
+    hitBoss();
+    return;
   }
-  if (state.score >= 10000 && !state.achievements.noviceTycoon) {
-    state.achievements.noviceTycoon = true;
-    state.score += 500;
-    console.log("Nailiyyət kilidi açıldı: Sahibkar!");
-  }
-  if (state.score >= 1000000 && !state.achievements.masterClicker) {
-    state.achievements.masterClicker = true;
-    state.score += 10000;
-    console.log("Nailiyyət kilidi açıldı: Usta Kliker!");
-  }
-}
 
-function checkLevelUp() {
-  if (state.xp >= state.xpNeeded) {
-    state.level += 1;
-    state.xp -= state.xpNeeded;
-    state.maxEnergy += 200;
-    state.energyRegenRate += 1;
-    state.xpNeeded = Math.floor(state.xpNeeded * 1.5);
-    state.clickPower += 1;
-    console.log(`Təbriklər, səviyyə ${state.level} oldu!`);
-  }
-}
+  // Combo artımı
+  gameState.comboCount++;
+  if (gameState.comboCount > 20) gameState.comboMultiplier = 3;
+  else if (gameState.comboCount > 10) gameState.comboMultiplier = 2;
+  else if (gameState.comboCount > 5) gameState.comboMultiplier = 1.5;
+  else gameState.comboMultiplier = 1;
 
-clickBtn.addEventListener('click', () => {
-  if (state.energy > 0) {
-    const earned = state.clickPower * state.frenzyMultiplier;
-    state.score += earned;
-    state.energy -= 1;
-    state.xp += 1;
-    checkLevelUp();
-    checkAchievements();
+  // Xalın hesablanması
+  const earned = gameState.clickPower * gameState.comboMultiplier;
+  gameState.score += earned;
+
+  // Combo taymerini sıfırla (1.2 saniyə klikləməsən combo bitir)
+  clearTimeout(gameState.comboTimeout);
+  gameState.comboTimeout = setTimeout(() => {
+    gameState.comboCount = 0;
+    gameState.comboMultiplier = 1;
     updateUI();
-    saveGameData();
+  }, 1200);
+
+  updateUI();
+}
+
+// === 2. BOSS DÖYÜŞÜ VƏ SINAQLAR ===
+function startBossFight() {
+  if (gameState.bossActive) return;
+
+  gameState.bossActive = true;
+  gameState.bossMaxHp = Math.floor(100 * Math.pow(1.8, Math.floor(gameState.score / 1000) + 1));
+  gameState.bossHp = gameState.bossMaxHp;
+  gameState.bossTimer = 15;
+
+  console.log("🔥 BOSS DÖYÜŞÜ BAŞLADI!");
+
+  gameState.bossInterval = setInterval(() => {
+    gameState.bossTimer--;
+    if (gameState.bossTimer <= 0) {
+      endBossFight(false);
+    }
+    updateUI();
+  }, 1000);
+
+  updateUI();
+}
+
+function hitBoss() {
+  const damage = gameState.clickPower * gameState.comboMultiplier;
+  gameState.bossHp -= damage;
+
+  if (gameState.bossHp <= 0) {
+    endBossFight(true);
+  }
+  updateUI();
+}
+
+function endBossFight(isWin) {
+  clearInterval(gameState.bossInterval);
+  gameState.bossActive = false;
+
+  if (isWin) {
+    const reward = gameState.bossReward + Math.floor(gameState.score * 0.2);
+    gameState.score += reward;
+    alert(`🎉 TƏBRİKLƏR! Bossu məğlub etdiniz və ${reward} xal mükafat qazandınız!`);
   } else {
-    console.log("Enerjiniz bitib!");
+    alert("❌ Vaxt bitdi! Bossu məğlub edə bilmədiniz.");
   }
-});
-
-adBtn.addEventListener('click', () => {
-  state.score += 10;
   updateUI();
-  saveGameData();
-});
+}
 
+// === 3. DİNAMİK SCALING UPGRADE SİSTEMİ ===
+function buyUpgrade(type) {
+  const up = gameState.upgrades[type];
+  if (!up) return;
+
+  // Dinamik Qiymət Hesablanması (Non-linear cost)
+  const currentCost = Math.floor(up.baseCost * Math.pow(up.costMultiplier, up.count));
+
+  if (gameState.score >= currentCost) {
+    gameState.score -= currentCost;
+    up.count++;
+
+    // Hər 10-cu səviyyədə Sıçrayışlı Güclənmə (Milestone Bonus)
+    let milestoneBonus = up.count % 10 === 0 ? 2.5 : 1;
+
+    if (type === 'clickBoost') {
+      gameState.clickPower += up.power * milestoneBonus;
+    } else {
+      gameState.passiveIncome += up.power * milestoneBonus;
+    }
+
+    updateUI();
+  } else {
+    alert("Kifayət qədər xalınız yoxdur!");
+  }
+}
+
+// === PASSİV QAZANC TAYMERİ ===
 setInterval(() => {
-  const now = Date.now();
-  const deltaTime = (now - state.lastUpdate) / 1000;
-
-  state.score += state.profitPerSecond * deltaTime;
-
-  if (state.energy < state.maxEnergy) {
-    state.energy += state.energyRegenRate * deltaTime;
-    if (state.energy > state.maxEnergy) {
-      state.energy = state.maxEnergy;
-    }
-  }
-
-  state.lastUpdate = now;
-  checkAchievements();
-  updateUI();
-}, 1000);
-
-function updateUI() {
-  if (scoreDisplay) scoreDisplay.innerText = Math.floor(state.score).toLocaleString();
-  if (energyDisplay) energyDisplay.innerText = `${Math.floor(state.energy)} / ${state.maxEnergy}`;
-  if (profitDisplay) profitDisplay.innerText = state.profitPerSecond;
-  if (levelDisplay) levelDisplay.innerText = `Səviyyə: ${state.level}`;
-  if (xpDisplay) xpDisplay.innerText = `XP: ${state.xp} / ${state.xpNeeded}`;
-
-  const holdingElem = document.getElementById('holding-wallet');
-  const poolElem = document.getElementById('pool-wallet');
-  if (holdingElem) holdingElem.textContent = state.holding.toLocaleString();
-  if (poolElem) poolElem.textContent = state.pool.toLocaleString();
-}
-
-function saveGameData() {
-  localStorage.setItem('gameData', JSON.stringify(state));
-}
-
-function loadGameData() {
-  const savedData = localStorage.getItem('gameData');
-  if (savedData) {
-    const parsedData = JSON.parse(savedData);
-    
-    if (parsedData.lastUpdate) {
-      const offlineDuration = (Date.now() - parsedData.lastUpdate) / 1000;
-      const offlineEarnings = parsedData.profitPerSecond * offlineDuration;
-      parsedData.score += offlineEarnings;
-    }
-
-    Object.assign(state, parsedData);
-    state.lastUpdate = Date.now();
+  if (gameState.passiveIncome > 0) {
+    gameState.score += gameState.passiveIncome / 10; // Hər 100ms-dən bir
     updateUI();
   }
+}, 100);
+
+// === İNTERFEYSİN YENİLƏNMƏSİ (UI UPDATE) ===
+function updateUI() {
+  if (scoreEl) scoreEl.innerText = Math.floor(gameState.score);
+  if (clickPowerEl) clickPowerEl.innerText = gameState.clickPower;
+  if (passiveEl) passiveEl.innerText = gameState.passiveIncome.toFixed(1);
+
+  if (comboEl) {
+    comboEl.innerText = gameState.comboCount > 1 
+      ? `Combo: x${gameState.comboMultiplier} (${gameState.comboCount} klik)` 
+      : '';
+  }
+
+  // Boss statusunu ekranda göstərmək üçün
+  const bossStatusEl = document.getElementById('boss-status');
+  if (bossStatusEl) {
+    if (gameState.bossActive) {
+      bossStatusEl.innerHTML = `
+        <div style="color: #ff2a55; font-weight: bold; margin-top: 10px;">
+          👹 BOSS HP: ${Math.max(0, gameState.bossHp)} / ${gameState.bossMaxHp} | ⏱️ Vaxt: ${gameState.bossTimer}s
+        </div>
+      `;
+    } else {
+      bossStatusEl.innerHTML = '';
+    }
+  }
 }
 
-loadGameData();
+// Düymə dinləyicisi (EventListener)
+if (clickBtn) {
+  clickBtn.addEventListener('click', registerClick);
+}
