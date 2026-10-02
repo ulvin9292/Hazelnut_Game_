@@ -1,4 +1,4 @@
-import { TonConnectUI } from '@tonconnect/ui';
+6import { TonConnectUI } from '@tonconnect/ui';
 
 const tonConnectUI = new TonConnectUI({
   manifestUrl: 'https://ulvin9292.github.io/Hazelnut_Game_/tonconnect-manifest.json'
@@ -106,3 +106,6 @@ function completeTask(reward, button) {
 }
 
 loadGameData();
+if (state.score >= 10000) {
+  alert("Təbriklər! 10 000 Fındıq Coin toplayaraq 1 kvadrat metr torpaq sahəsi qazandınız.");
+}
