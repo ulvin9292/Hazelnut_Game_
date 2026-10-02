@@ -1,0 +1,41 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 400px;
+    margin: 0 auto;
+}
+.score-board {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+.click-area button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+.click-area img {
+    width: 200px;
+    height: auto;
+    transition: transform 0.1s;
+}
+.click-area img:active {
+    transform: scale(0.95);
+}
+.footer {
+    margin-top: 30px;
+}
+#ad-btn {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
