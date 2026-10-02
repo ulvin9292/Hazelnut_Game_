@@ -6,38 +6,44 @@
 }
 
 body {
-  background-color: #1a1a2e;
+  background-color: #0d0f1a;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
+  padding: 20px;
 }
 
 .game-container {
-  background-color: #16213e;
+  background-color: #151930;
   width: 100%;
-  max-width: 400px;
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  max-width: 450px;
+  padding: 30px;
+  border-radius: 25px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
   text-align: center;
-  margin: 10px;
 }
 
 h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
+  font-size: 28px;
+  margin-bottom: 25px;
   color: #4cc9f0;
+  letter-spacing: 1px;
 }
 
 .stats {
-  background-color: #0f3460;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 20px;
+  background-color: #1e2448;
+  padding: 25px;
+  border-radius: 20px;
+  margin-bottom: 25px;
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 2;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.stats p {
+  margin-bottom: 5px;
 }
 
 .stats span {
@@ -46,34 +52,38 @@ h1 {
 }
 
 #frenzy-status {
-  font-size: 18px;
-  margin-top: 10px;
-  text-shadow: 0 0 10px #f72585;
+  font-size: 20px;
+  margin-top: 15px;
+  color: #f72585;
+  text-shadow: 0 0 15px #f72585;
+  font-weight: bold;
 }
 
 .actions {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 20px;
+  margin-bottom: 30px;
 }
 
 button {
   background-color: #e94560;
   color: white;
   border: none;
-  padding: 15px 20px;
-  border-radius: 12px;
+  padding: 20px 25px;
+  border-radius: 15px;
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   flex: 1;
+  box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
 }
 
 button:hover {
   background-color: #ff2a55;
-  transform: translateY(-2px);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(255, 42, 85, 0.5);
 }
 
 button:active {
@@ -84,31 +94,39 @@ button:active {
   background-color: #4cc9f0;
   color: #0f3460;
   font-size: 18px;
+  box-shadow: 0 5px 15px rgba(76, 201, 240, 0.4);
 }
 
 #click-btn:hover {
   background-color: #4361ee;
   color: #fff;
+  box-shadow: 0 8px 20px rgba(67, 97, 238, 0.5);
 }
 
 .shop {
-  background-color: #0f3460;
-  padding: 15px;
-  border-radius: 15px;
-  margin-bottom: 20px;
+  background-color: #1e2448;
+  padding: 25px;
+  border-radius: 20px;
+  margin-bottom: 30px;
 }
 
 .shop h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  margin-bottom: 20px;
   color: #4cc9f0;
 }
 
 .shop button {
   display: block;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   background-color: #4361ee;
+  box-shadow: 0 5px 15px rgba(67, 97, 238, 0.4);
+}
+
+.shop button:hover {
+  background-color: #3f37c9;
+  box-shadow: 0 8px 20px rgba(63, 55, 201, 0.5);
 }
 
 .shop button:last-child {
@@ -116,8 +134,12 @@ button:active {
 }
 
 .wallets {
-  font-size: 14px;
-  color: #8e9aaf;
+  font-size: 15px;
+  color: #a0aab8;
+  display: flex;
+  justify-content: space-around;
+  padding-top: 15px;
+  border-top: 1px solid #1e2448;
 }
 
 .wallets span {
