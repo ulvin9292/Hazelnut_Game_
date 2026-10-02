@@ -1,17 +1,7 @@
-6import { TonConnectUI } from '@tonconnect/ui';
 
-const tonConnectUI = new TonConnectUI({
   manifestUrl: 'https://ulvin9292.github.io/Hazelnut_Game_/tonconnect-manifest.json'
 });
-
-document.getElementById('connect-wallet-btn').addEventListener('click', async () => {
-  try {
-    await tonConnectUI.openModal();
-  } catch (error) {
-    console.error("Xəta baş verdi:", error);
-  }
-});
-
+document.getElementById('connect-wallet-btn').addEventListener('click', async () => 
 let state = { score: 0, level: 1, totalTaps: 0, energy: 1000, maxEnergy: 1000, pointsPerTap: 1, nextLevelThreshold: 100 };
 const tg = window.Telegram?.WebApp;
 if (tg) { tg.ready(); tg.expand(); }
