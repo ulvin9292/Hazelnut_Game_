@@ -39,3 +39,10 @@ body {
     border: none;
     cursor: pointer;
 }
+body {
+  background-image: url('şəkilinizin_linkini_bura_qoyun');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
