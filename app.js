@@ -74,11 +74,28 @@ clickBtn.addEventListener('click', () => {
   }
 });
 
-adBtn.addEventListener('click', () => {
-  state.score += 10;
-  updateUI();
-  saveGameData();
-});
+function showAd() {
+  if (typeof window.Adsgram !== 'undefined') {
+    const ad = window.Adsgram.init({ blockId: "REKLAM_BİOK_İDNİZ" });
+    ad.show()
+      .then((result) => {
+        if (result.done) {
+          state.score += 50;
+          updateUI();
+          saveGameData();
+          console.log("Reklam uğurla izlənilirdi!");
+        } else {
+          console.log("İstifadəçi reklamı vaxtından əvvəl bağladı.");
+        }
+      })
+      .catch((error) => {
+        console.error("Reklam yüklənərkən xəta baş verdi.", error);
+      });
+  } else {
+    console.warn("AdsGram SDK tam yüklənməyib.");
+  }
+}
+
 
 buyClickPowerBtn.addEventListener('click', () => {
   if (state.score >= state.clickPowerCost) {
@@ -181,3 +198,4 @@ function showAd() {
     console.warn("AdsGram SDK tam yüklənməyib.");
   }
 }
+showAd()
