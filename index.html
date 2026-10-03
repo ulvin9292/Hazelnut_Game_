@@ -3,36 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kliker Oyunu</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://sad.adsgram.ai/js/adsgram.js"></script>
+    <title>Hazelnut Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        h1 { color: #333; }
+        .balance {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 20px 0;
+            color: #2c3e50;
+        }
+        .stats {
+            margin-top: 20px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            font-size: 16px;
+            color: #555;
+        }
+        .stats p { margin: 5px 0; }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #27ae60;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover { background-color: #2ecc71; }
+    </style>
 </head>
 <body>
-    <div class="game-container">
-        <h1>Mənim Kliker Oyunum</h1>
+    <div class="container">
+        <h1>Hazelnut</h1>
+        <div class="balance">Balans: <span id="balance">0</span> HAZEL</div>
+        <button id="adButton">Reklama bax və 1 HAZEL qazan</button>
         <div class="stats">
-            <p>Xal: <span id="score">0</span></p>
-            <p>Klik gücü: <span id="click-power">1</span></p>
-            <p>Passiv gəlir: <span id="passive-income">0</span></p>
-            <p id="combo-display"></p>
-            <div id="boss-status"></div>
-        </div>
-        <div class="actions">
-            <button id="click-btn">Kliklə!</button>
-            <button id="start-boss-btn" onclick="startBossFight()">Boss Döyüşünü Başlat</button>
-           <button id="ad-btn" onclick="showAd()">Reklama Bax</button> 
-        </div>
-        <div class="shop">
-            <h2>Mağaza</h2>
-            <button onclick="buyUpgrade('clickBoost')">Klik Gücünü Artır</button>
-            <button onclick="buyUpgrade('autoMiner')">Avtomatik Qazıcı Al</button>
-            <button onclick="buyUpgrade('quantumCore')">Kvant Nüvəsi Al</button>
-        </div>
-        <div class="wallets">
-            <p>Holding Valyutası: <span id="holding-wallet">0</span></p>
-            <p>Pul Valyutası: <span id="pool-wallet">0</span></p>
+            <p>Gündəlik izlənilən reklam: <span id="dailyAds">0</span></p>
+            <p>Gündəlik qazanılan HAZEL: <span id="dailyEarned">0</span></p>
+            <p>Aylıq izlənilən reklam: <span id="monthlyAds">0</span></p>
+            <p>Aylıq qazanılan HAZEL: <span id="monthlyEarned">0</span></p>
         </div>
     </div>
-    <script src="app.js"></script>
+
+    <script>
+        let balance = 0;
+        let dailyAds = 0;
+        let dailyEarned = 0;
+        let monthlyAds = 0;
+        let monthlyEarned = 0;
+        
+        const balanceDisplay = document.getElementById('balance');
+        const dailyAdsDisplay = document.getElementById('dailyAds');
+        const dailyEarnedDisplay = document.getElementById('dailyEarned');
+        const monthlyAdsDisplay = document.getElementById('monthlyAds');
+        const monthlyEarnedDisplay = document.getElementById('monthlyEarned');
+        const adButton = document.getElementById('adButton');
+
+        function loadAds() {
+            if (typeof adsApp !== 'undefined') {
+                adsApp.showRewardedVideo();
+            } else {
+                console.log("Reklam platforması yüklənməyib.");
+            }
+        }
+
+        function onRewardedAdCompleted() {
+            balance += 1;
+            dailyAds += 1;
+            dailyEarned += 1;
+            monthlyAds += 1;
+            monthlyEarned += 1;
+
+            balanceDisplay.textContent = balance;
+            dailyAdsDisplay.textContent = dailyAds;
+            dailyEarnedDisplay.textContent = dailyEarned;
+            monthlyAdsDisplay.textContent = monthlyAds;
+            monthlyEarnedDisplay.textContent = monthlyEarned;
+
+            alert("Təbrik edirik! 1 HAZEL qazandınız.");
+        }
+
+        adButton.addEventListener('click', loadAds);
+        window.onRewardedAdCompleted = onRewardedAdCompleted;
+    </script>
 </body>
 </html>
