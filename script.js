@@ -174,3 +174,26 @@ function updateUI() {
 if (clickBtn) {
   clickBtn.addEventListener('click', registerClick);
 }
+// Reklam düyməsi üçün dəyişən
+const adBtn = document.getElementById('watch-ad-btn');
+
+// Adsgram reklam mexanikasını başlatmaq funksiyası
+const adController = window.Adsgram.init({ blockId: '52079' });
+
+adBtn.addEventListener('click', () => {
+    adController.show()
+        .then((result) => {
+            if (result.done) {
+                // Reklam uğurla izlənildikdə bal əlavə olunur
+                gameState.score += 1;
+                updateUI();
+                alert('Təbriklər! 1 HAZEL qazandınız.');
+            } else {
+                // Reklam yarımçıq dayandıqda
+                alert('Reklamı sona qədər izləmədiyiniz üçün mükafat ala bilmədiniz.');
+            }
+        })
+        .catch((err) => {
+            console.error('Reklam göstərilərkən xəta baş verdi:', err);
+        });
+});
