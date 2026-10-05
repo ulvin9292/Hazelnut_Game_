@@ -54,8 +54,8 @@
     <div class="container">
         <h1>Hazelnut</h1>
         <div class="balance">Balans: <span id="balance">0</span> HAZEL</div>
-        <button id="adButton">Reklama bax və 1 HAZEL qazan</button>
-        <div class="stats">
+        <button id="watch-ad-btn">Reklama bax və 1 HAZEL qazan</button>
+        <div class="watch-ad-btn">
             <p>Gündəlik izlənilən reklam: <span id="dailyAds">0</span></p>
             <p>Gündəlik qazanılan HAZEL: <span id="dailyEarned">0</span></p>
             <p>Aylıq izlənilən reklam: <span id="monthlyAds">0</span></p>
@@ -75,7 +75,7 @@
         const dailyEarnedDisplay = document.getElementById('dailyEarned');
         const monthlyAdsDisplay = document.getElementById('monthlyAds');
         const monthlyEarnedDisplay = document.getElementById('monthlyEarned');
-        const adButton = document.getElementById('adButton');
+        const adButton = document.getElementById('watch-ad-btn');
 
         function loadAds() {
             if (typeof adsApp !== 'undefined') {
