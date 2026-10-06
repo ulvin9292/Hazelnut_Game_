@@ -1,1 +1,240 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hazelnut Game</title>
+    <style>
+        body {
+            background-color: #0c0b09;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            width: 100%;
+            max-width: 500px;
+            background: linear-gradient(180deg, #181510 0%, #0c0b09 100%);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.1);
+        }
+        .header {
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .avatar {
+            width: 40px;
+            height: 40px;
+            background-color: #d4af37;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #0c0b09;
+        }
+        .user-details {
+            display: flex;
+            flex-direction: column;
+        }
+        .username {
+            font-weight: bold;
+            font-size: 16px;
+        }
+        .level-badge {
+            background-color: #3d3522;
+            color: #d4af37;
+            font-size: 11px;
+            padding: 2px 6px;
+            border-radius: 10px;
+            width: fit-content;
+        }
+        .wallet-btn {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            text-align: center;
+        }
+        .assets-title {
+            color: #8a8175;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        .total-assets {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .wallet-info {
+            display: flex;
+            background-color: #262117;
+            padding: 10px;
+            border-radius: 15px;
+            width: 100%;
+            justify-content: space-around;
+            margin-bottom: 30px;
+            font-size: 13px;
+        }
+        .wallet-column {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .wallet-label {
+            color: #8a8175;
+        }
+        .wallet-value {
+            font-weight: bold;
+            color: #d4af37;
+        }
+        .coin-container {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .coin {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, #e6ca65, #c59f2e, #534211);
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(255,255,255,0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: #534211;
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+        .coin:active {
+            transform: scale(0.95);
+        }
+        .claim-btn {
+            width: 100%;
+            max-width: 300px;
+            padding: 18px;
+            background-color: #d4af37;
+            color: #0c0b09;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+        }
+        .nav-menu {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px 10px;
+            background-color: #181510;
+            border-top: 1px solid #262117;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            color: #8a8175;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        .nav-item.active {
+            color: #d4af37;
+        }
+        .nav-icon {
+            width: 24px;
+            height: 24px;
+            background-color: currentColor;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="user-info">
+                <div class="avatar">Ü</div>
+                <div class="user-details">
+                    <span class="username">ülvin</span>
+                    <span class="level-badge">Lvl 127</span>
+                </div>
+            </div>
+            <button class="wallet-btn">Connect Wallet</button>
+        </div>
+
+        <div class="main-content">
+            <div class="assets-title">Gəlir</div>
+            <div class="total-assets">2.402,9638 ATF</div>
+
+            <div class="wallet-info">
+                <div class="wallet-column">
+                    <span class="wallet-label">Holding</span>
+                    <span class="wallet-value">448,843</span>
+                </div>
+                <div class="wallet-column">
+                    <span class="wallet-label">Pool</span>
+                    <span class="wallet-value">1.954,1206</span>
+                </div>
+            </div>
+
+            <div class="coin-container">
+                <div class="coin">ATF</div>
+            </div>
+
+            <button class="claim-btn">CLAIM</button>
+        </div>
+
+        <div class="nav-menu">
+            <a class="nav-item active">
+                <div class="nav-icon"></div>
+                <span>Mine</span>
+            </a>
+            <a class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Tasks</span>
+            </a>
+            <a class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Miners</span>
+            </a>
+            <a class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Friends</span>
+            </a>
+            <a class="nav-item">
+                <div class="nav-icon"></div>
+                <span>Profile</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
 
